@@ -46,6 +46,7 @@
 
 (defn send-task-result [token url status]
   (when (not= token "test-token")
+    (timbre/log :info "Sending task result request")
     (let [headers {:Authorization (str "Bearer " token)}]
       (client/patch url
                     {:body (task-result-payload status)

@@ -1,7 +1,21 @@
-FROM openjdk:8-alpine
+FROM clojure
 
-COPY target/uberjar/terraflicks.jar /terraflicks/app.jar
+WORKDIR /build
+COPY ./project.clj /build
+
+RUN lein with-profile uberjar deps
+
+COPY . /build
+RUN lein uberjar
+
+FROM java:8-alpine
+RUN apk add --no-cache curl
+
+COPY --from=0 /build/target/uberjar/terraflicks.jar /terraflicks/app.jar
+COPY --from=0 /build/docker-start.sh /terraflicks/docker-start.sh
 
 EXPOSE 3000
 
-CMD ["java", "-jar", "/terraflicks/app.jar"]
+WORKDIR /terraflicks
+
+CMD ["./docker-start.sh"]

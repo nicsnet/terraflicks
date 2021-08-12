@@ -1,0 +1,5 @@
+services:
+  terraflicks:
+    build: .
+    ports:
+      - "3006:3000"
