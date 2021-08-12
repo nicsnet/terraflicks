@@ -56,7 +56,6 @@
 
 (defn task-result-pass-handler [{{{:keys [access_token task_result_callback_url]} :body} :parameters}]
   ;; get access_token and callback_url and post back
-  (timbre/log :info "PATCH task result pass")
   (send-task-result access_token task_result_callback_url "passed")
   (ok {:message "ok"}))
 
@@ -72,6 +71,16 @@
     (timbre/log :info (str "PATCH task result " status))
     (send-task-result access_token task_result_callback_url status)
     (ok {:message "ok"})))
+
+(defn task-result-error-404-handler [{{{:keys [access_token]} :body} :parameters}]
+  (if (= access_token "test-token")
+    (ok {:message "ok"})
+    (not-found {:message "Not found"})))
+
+(defn task-result-error-500-handler [{{{:keys [access_token]} :body} :parameters}]
+  (if (= access_token "test-token")
+    (ok {:message "ok"})
+    (internal-server-error {:message "Something went wrong"})))
 
 (defn service-routes []
   ["/api"
@@ -125,6 +134,18 @@
              :parameters {:body task-result}
              :responses {200 {:schema (s/keys :req-un [::message])}}
              :handler task-result-fail-handler}}]
+
+    ["/error-404"
+     {:post {:summary "use this endpoint to trigger a run task error response 404"
+             :parameters {:body task-result}
+             :responses {200 {:schema (s/keys :req-un [::message])}}
+             :handler task-result-error-404-handler}}]
+
+    ["/error-500"
+     {:post {:summary "use this endpoint to trigger a run task error response 500"
+             :parameters {:body task-result}
+             :responses {200 {:schema (s/keys :req-un [::message])}}
+             :handler task-result-error-500-handler}}]
 
     ["/kinder-surprise"
      {:post {:summary "use this endpoint if you are undecided if a task result should pass or fail"
