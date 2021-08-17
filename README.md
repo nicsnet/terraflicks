@@ -14,7 +14,7 @@ Choose the event hook url that fits your use case.
 * http://floating-caverns-48130.herokuapp.com/api/run-tasks/timeout never replies
 * http://floating-caverns-48130.herokuapp.com/api/run-tasks/kinder-surprise if you'd rather be surprised by the result 
 
-Save the event hook. You can also create multiple one per scenario.
+Save the event hook. You can also create multiple, one per scenario.
 
 Go to your workspace Settings > Tasks and create tasks for the event hooks you've just created. 
 Queue a run and see what happens.
@@ -38,3 +38,34 @@ You will need [Leiningen][1] 2.0 or above installed.
 To start a web server for the application, run:
 
     lein run 
+
+You can also use docker-compose to run the server locally:
+```
+docker-compose up
+```
+
+lein run exposes a port `3000` on localhost, running docker-compose will have it running on port `3006`
+
+In order to use the local server for event hooks, you need to also create an url with `ngrok`
+
+```
+ngrok http 3006
+```
+
+This will create an url to your local, e.g. `http://e28bfacd28ab.ngrok.io``
+
+## Deployment
+
+The app runs on Heroku. You need to have the [heroku cli](https://devcenter.heroku.com/articles/heroku-cli) installed.
+
+Once you've installed the cli and created a Heroku account:
+
+```
+heroku login
+git push heroku main
+```
+
+To view the logs:
+```
+heroku logs
+```
