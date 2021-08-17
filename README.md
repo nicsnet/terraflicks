@@ -52,7 +52,7 @@ In order to use the local server for event hooks, you need to also create an url
 ngrok http 3006
 ```
 
-This will create an url to your local, e.g. `http://e28bfacd28ab.ngrok.io``
+This will create an url to your local, e.g. http://e28bfacd28ab.ngrok.io
 
 ## Deployment
 
