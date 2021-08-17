@@ -16,6 +16,10 @@ Save the event hook. You can also create multiple one per scenario.
 Go to your workspace Settings > Tasks and create tasks for the event hooks you've just created. 
 Queue a run and see what happens.
 
+**Note:**
+
+This API is hosted on Heroku, and Heroku will shut down this service after a period of inactivity. To make sure the event hooks will respond in time when testing out the run tasks feature, visit http://floating-caverns-48130.herokuapp.com/ first and wait for the Swagger UI to load. Then you are ready for testing.
+
 ## Swagger
 
 A swagger UI describing the API can be found here http://floating-caverns-48130.herokuapp.com/
