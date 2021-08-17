@@ -8,6 +8,7 @@
     [reitit.ring.middleware.multipart :as multipart]
     [reitit.ring.middleware.parameters :as parameters]
     [terraflicks.middleware.formats :as formats]
+    [terraflicks.messages :as messages]
     [taoensso.timbre :as timbre]
     [ring.util.http-response :refer :all]
     [clj-http.client :as client]
@@ -41,8 +42,8 @@
 (defn task-result-payload [status]
   (json/write-str {:data {:type "task-results"
                           :attributes {:status status
-                                       :message "Hello task result"
-                                       :url "http://example.com"}}}))
+                                       :message (messages/text)
+                                       :url "https://www.terraform.io/"}}}))
 
 (defn send-task-result [token url status]
   (when (not= token "test-token")
@@ -81,6 +82,11 @@
   (if (= access_token "test-token")
     (ok {:message "ok"})
     (internal-server-error {:message "Something went wrong"})))
+
+(defn task-result-timeout-handler [{{{:keys [access_token]} :body} :parameters}]
+  (if (= access_token "test-token")
+    (ok {:message "ok"})
+    (Thread/sleep 600000)))
 
 (defn service-routes []
   ["/api"
@@ -146,6 +152,12 @@
              :parameters {:body task-result}
              :responses {200 {:schema (s/keys :req-un [::message])}}
              :handler task-result-error-500-handler}}]
+
+    ["/timeout"
+     {:post {:summary "use this endpoint to let the task result timeout and never respond"
+             :parameters {:body task-result}
+             :responses {200 {:schema (s/keys :req-un [::message])}}
+             :handler task-result-timeout-handler}}]
 
     ["/kinder-surprise"
      {:post {:summary "use this endpoint if you are undecided if a task result should pass or fail"
