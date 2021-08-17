@@ -9,6 +9,9 @@ Give an appropriate name that describes your task use case scenario.
 Choose the event hook url that fits your use case.
 * http://floating-caverns-48130.herokuapp.com/api/run-tasks/pass will always respond with a passing task result
 * http://floating-caverns-48130.herokuapp.com/api/run-tasks/fail will always respond with a failing task result
+* http://floating-caverns-48130.herokuapp.com/api/run-tasks/error-404 responds with a `404`
+* http://floating-caverns-48130.herokuapp.com/api/run-tasks/error-500 responds with a `500`
+* http://floating-caverns-48130.herokuapp.com/api/run-tasks/timeout never replies
 * http://floating-caverns-48130.herokuapp.com/api/run-tasks/kinder-surprise if you'd rather be surprised by the result 
 
 Save the event hook. You can also create multiple one per scenario.
