@@ -83,10 +83,13 @@
     (ok {:message "ok"})
     (internal-server-error {:message "Something went wrong"})))
 
-(defn task-result-timeout-handler [{{{:keys [access_token]} :body} :parameters}]
+(defn task-result-error-503-handler [{{{:keys [access_token]} :body} :parameters}]
   (if (= access_token "test-token")
     (ok {:message "ok"})
     (Thread/sleep 600000)))
+
+(defn task-result-timeout-handler [{}]
+  (ok {:message "ok"}))
 
 (defn service-routes []
   ["/api"
@@ -153,8 +156,14 @@
              :responses {200 {:schema (s/keys :req-un [::message])}}
              :handler task-result-error-500-handler}}]
 
+    ["/error-503"
+     {:post {:summary "use this endpoint to test the task result delivery timeout"
+             :parameters {:body task-result}
+             :responses {200 {:schema (s/keys :req-un [::message])}}
+             :handler task-result-error-503-handler}}]
+
     ["/timeout"
-     {:post {:summary "use this endpoint to let the task result timeout and never respond"
+     {:post {:summary "use this endpoint to let the task result timeout and never reply"
              :parameters {:body task-result}
              :responses {200 {:schema (s/keys :req-un [::message])}}
              :handler task-result-timeout-handler}}]
