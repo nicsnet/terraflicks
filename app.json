@@ -1,0 +1,7 @@
+{
+    "name": "Terraform Run Tasks Tester",
+    "description": "An app for testing run tasks on Terraform Cloud",
+    "repository": "glenngillen/terraflicks",
+    "keywords": ["terraform"]
+  }
+  

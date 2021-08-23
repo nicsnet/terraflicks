@@ -1,5 +1,6 @@
 # terraflicks
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 A simple API to test the integration of the Terraform Cloud Run tasks feature.
 To get started set up a Task event Hook. Go to Settings > Task event hooks > Add Event Hook.
