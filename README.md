@@ -8,13 +8,13 @@ To get started set up a Task event Hook. Go to Settings > Task event hooks > Add
 Give an appropriate name that describes your task use case scenario.
 
 Choose the event hook url that fits your use case.
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/pass will always respond with a passing task result
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/fail will always respond with a failing task result
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/error-404 responds with a `404`
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/error-500 responds with a `500`
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/error-503 responds with a `503` eventually after retrying the task result delivery fails
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/timeout never replies
-* http://floating-caverns-48130.herokuapp.com/api/run-tasks/kinder-surprise if you'd rather be surprised by the result 
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/pass will always respond with a passing task result
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/fail will always respond with a failing task result
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/error-404 responds with a `404`
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/error-500 responds with a `500`
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/error-503 responds with a `503` eventually after retrying the task result delivery fails
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/timeout never replies
+* http://heroku-app-domain.herokuapp.com/api/run-tasks/kinder-surprise if you'd rather be surprised by the result 
 
 Save the event hook. You can also create multiple, one per scenario.
 
@@ -23,7 +23,7 @@ Queue a run and see what happens.
 
 **Note:**
 
-This API is hosted on Heroku, and Heroku will shut down this service after a period of inactivity. To make sure the event hooks will respond in time when testing out the run tasks feature, visit http://floating-caverns-48130.herokuapp.com/ first and wait for the Swagger UI to load. Then you are ready for testing.
+This API is hosted on Heroku, and Heroku will shut down this service after a period of inactivity. To make sure the event hooks will respond in time when testing out the run tasks feature, visit http://heroku-app-domain.herokuapp.com/ first and wait for the Swagger UI to load. Then you are ready for testing.
 
 ## Swagger
 
